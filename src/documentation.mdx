@@ -5,10 +5,47 @@ route: '/documentation'
 
 # JavaScript standards
 
+## JavaScript
+
+The best available style guide is the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript). Use it for reference.
+
 ## Linting
+
+eslint-config-airbnb will enforce the use of the airbnb best practices laid out in their style guide.
 
 ## Prettier
 
+Out of the box gatsby makes some assumptions about the prettier config that need to be changed
+
+```
+{
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "bracketSpacing": true,
+  "arrowParens": "avoid"
+}
+```
+
+## React
+
+https://github.com/airbnb/javascript/tree/master/react
+
 ## Gatsby
 
-## Routing
+## Routing (reach router)
+
+## .gitignore
+
+ignore all local/editor specific configuration
+
+ignore the .DS_Store on macOS
+
+ignore node_modules
+
+## Libraries
+
+it is best to avoid importing libraries such a lodash and underscore. While the utilities provided may seem useful, there are likely vanilla JS implementations for the functions you want to use.

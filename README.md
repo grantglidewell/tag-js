@@ -9,7 +9,7 @@ yarn
 ## Development
 
 ```
-yarn docz dev
+yarn start
 ```
 
 ## Contributions
