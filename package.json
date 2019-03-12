@@ -1,0 +1,15 @@
+{
+  "name": "tag-js",
+  "version": "0.0.1",
+  "description": "Third and Grove standards and best practices for JS applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Grant Glidewell <grant@thirdandgrove.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "docz": "^0.13.7",
+    "docz-theme-default": "^0.13.7"
+  }
+}
