@@ -1,6 +1,7 @@
 ---
-Name: TAG Documentation
+Name: 'Philosophy'
 route: '/'
+order: 11
 ---
 
 <img
@@ -14,10 +15,29 @@ route: '/'
 
 Third and Grove plans to progressively adopt JavaScript as a core technology for building client projects. Having a unified set of standards for all of our projects will allow for faster onboarding, more cohesive codebases, and an overall better developer experience. React is a core technology we plan to utilize along with Gatsby. While Gatsby is a React centric framework, they have made some decisions on code style that diverge from TAG standards. When initially seting up a project with Gatsby, following these guidelines should ensure that all contributions have uniformity.
 
-Gerneral setup guidelines
+- [Front End Best Practices](/legacyFrontEndStandards)(legacy)
+- [Coding Best Practices](/legacyCodingBestPractices)(legacy)
 
-- npm package to install all style deps? (`yarn add tag-style-lint -D`)
+<!-- Gerneral setup guidelines
+
 - use Yarn (package manager)
 - use prettier
 - use pre-commit hooks (https://prettier.io/docs/en/precommit.html [pretty-quick])
-- prefer.json config files
+- prefer '.json' config files -->
+
+## Standards npm package
+
+install all coding style/standards configurations into your project
+
+install:
+
+```
+npm i -g tag-standards
+```
+
+use:
+in project
+
+```
+tag-standards install .
+```

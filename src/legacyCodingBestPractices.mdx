@@ -1,0 +1,125 @@
+---
+name: 'Coding Best Practices (legacy)'
+route: '/legacyCodingBestPractices'
+---
+
+# Coding Best Practices
+
+The more uniform our code is across the organization, the easier time we will have maintaining it.
+
+Follow established coding standards
+Drupal, Wordpress and Magento all have their own coding standards documents. Projects in these frameworks should follow their respective standards strictly. Laravel and Symfony projects should follow PSR 1 - 4.
+
+Follow the TAG Front-End Best Practices
+Some of these can be counterintuitive at first (such as avoiding nested SCSS); however, these will help to reduce the maintenance effort for front-end code.
+
+Avoid indentation
+Lots of nested code blocks can make code much harder to read. Whenever practical, avoid nesting indented blocks. For instance:
+
+```
+if ($condition) {
+  foreach ($collection as $item) {
+    if ($other_condition) {
+do_something(\$item);
+}
+}
+}
+```
+
+should be refactored as:
+
+```
+if (!$condition) {
+  return;
+}
+foreach ($collection as $item) {
+  if (!$other_condition) {
+continue;
+}
+do_something(\$item);
+}
+```
+
+Avoid elseif
+Long strings of elseifs can be difficult to follow. Prefer switch or the method described in "Avoid indention" whenever practical.
+
+Comments: Answer "Why?", not "What?"
+Comments should not summarize what some code is trying to do. Instead, it should explain why the code is necessary. For instance:
+
+```
+// If this is a local environment:
+if (!empty($base_insecure_url) && strpos($base_insecure_url, 'http://local') === 0) {
+// Returns early.
+return;
+}
+```
+
+should be refactored as:
+
+```
+if (!empty($base_insecure_url) && strpos($base_insecure_url, 'http://local') === 0) {
+// The rest of this function only applies to non-local environments.
+return;
+}
+```
+
+## PHP
+
+Don't query the DB inside a loop
+This is very important for performance and scalability. Consider the following:
+
+```
+$titles = array();
+foreach ($nids as $nid) {
+  $node = node_load($nid);
+  $titles[] = \$node->title;
+}
+```
+
+This code adds N additional SELECT queries per invocation. This can rapidly become an issue as the number of elements in the \$nids array grows. This should be refactored as so:
+
+```
+$titles = array();
+$nodes = node_load_multiple($nids);
+foreach ($nodes as $node) {
+  $titles[] = \$node->title;
+}
+```
+
+Now we're only adding a single query, regardless of the number of records being returned.
+
+## Drupal
+
+Use variables for configuration values
+
+Configuration values such as external API endpoints and keys, client contact info and any other non-content data that may change in the future should be stored as Drupal variables. Do this either with variable_set() in a release script or by adding it as a \$conf value in settings.php. This is especially true for values which should change based on the environment (dev/test/prod).
+
+Keep your .module file clean
+
+As long as a module is enabled, the .module file is loaded every time Drupal is bootstrapped. It is very important to keep this file as small as practical so that performance isn't impacted. As an extension of this, do not use global includes in your .module files. Instead, do use includes inside of functions. The only functions that belong in a .module file are hook* and theme* implementations. Everything else should be refactored out into separate files and only included when needed.
+
+## Git
+
+Give your branches meaningful names
+
+Unless your project lead specifies otherwise, use the following branch naming format: `<base branch>+<ticket number>`. For instance, my branch for JIRA ticket SWS-109, which went into the 4.1.0 release branch, was named v4.1.0+SWS-109.
+
+Use full sentences in your commit messages
+
+Commit messages should be full sentences in the imperative mood. Whenever applicable, include the JIRA ticket number in the comment.
+
+Bad
+
+```Code cleanup.
+Skeleton for new QuickenExport module.
+Download URL should not be required (GP-97).
+Removing unnecessary use statement and fixing indentation.
+```
+
+Good
+
+```JIRA-123: Clean up code.
+JIRA-123: Add the skeleton for the new QuickenExport module.
+Make Download URL not required (GP-97).
+JIRA-123: Remove unnecessary use statement and fix indentation.
+```

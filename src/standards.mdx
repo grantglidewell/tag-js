@@ -1,6 +1,7 @@
 ---
 name: Standards
 route: '/standards'
+order: 10
 ---
 
 # JavaScript standards
@@ -11,11 +12,15 @@ The best available style guide is the [Airbnb JavaScript Style Guide](https://gi
 
 ## Linting
 
-eslint-config-airbnb will enforce the use of the airbnb best practices laid out in their style guide.
+[ESlint](https://github.com/eslint/eslint) is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code. In many ways, it is similar to JSLint and JSHint with a few exceptions:
+
+[eslint-config-airbnb](https://www.npmjs.com/package/eslint-config-airbnb) will enforce the use of the airbnb best practices laid out in their style guide.
+
+[eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y) is a static AST checker for accessibility rules on JSX elements.
 
 ## Prettier
 
-Out of the box gatsby makes some assumptions about the prettier config that need to be changed
+Tabs or spaces? Prettier will handle all of this and more. Out of the box gatsby makes some assumptions about the prettier config that need to be changed. That is simple enough to do, if youre using the
 
 ```
 {
@@ -32,12 +37,17 @@ Out of the box gatsby makes some assumptions about the prettier config that need
 
 ## React
 
-https://github.com/airbnb/javascript/tree/master/react
-eslint-plugin-react
+[eslint-plugin-react](https://github.com/airbnb/javascript/tree/master/react)
 
 ## Gatsby
 
 ## Routing (reach router)
+
+In most cases it is best to compose your routes in the root of the project. Routing in a nested component may create confusion for other developers trying to find said route. Reach router is flexible and will allow routing at any component level. There may be some extenuating circumstance where routes cannot be composed in this fashion and will be evaluated on a case by case basis.
+
+In a similar manner the folder structure should follow the routing structure in terms of container(smart) components.
+
+## Project Structure
 
 ## .gitignore
 

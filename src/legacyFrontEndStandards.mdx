@@ -1,0 +1,164 @@
+---
+name: 'Front End Standards (legacy)'
+route: '/legacyFrontEndStandards'
+---
+
+# Front End Standards
+
+When creating themes, it is important to keep our code modular, easily scalable, and easily understood by other developers (or even ourselves once our memory of the project has started to fade). This document contains best practices for working with CSS/SCSS, HTML, Javascript, and Drupal.
+
+For back-end best practices, see "Coding best practices."
+
+## Responsive design
+
+Third and Grove follows a strict mobile first approach to responsive design. This allows us to build sites with the lowest common denominator in mind and progressively add styles according to the viewport size. We don't overload small phones with excessive code, and we optimize performance across the board, ensuring that all devices provide the best user experience possible. To this end, we should never use max-width media queries.
+
+## Viewport Tag
+
+In order to create effective designs for mobile devices, we must correctly used the viewport meta tag. The proper viewport meta tag offers the ability to create styles specifically for mobile devices.
+
+```
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+The first argument sets the viewport width to the width of the user's device (mobile, tablet, desktop, etc.) and the second argument ensures that when loaded, the web page will be rendered at a 1:1 scale and no zooming will be applied out of the box.
+
+## Creating a theme folder
+
+Third and Grove uses Gulp as a primary SCSS compiler because of its speed and broad support for extensions including but not limited to Autoprefixer, linting, generating icon fonts, Modernizr, and other useful tools. Our latest Gulp starter can be found on GitHub. Consult the repository's README for details on getting started with Gulp.
+
+## SCSS
+
+Third and Grove currently uses SCSS because it is syntactically similar to CSS yet offers the power of SASS. Although SCSS offers incredible power, it has some downsides if used improperly. In order to avoid future bugs and overly verbose code, we write our SCSS as close to vanilla CSS as possible.
+
+## Partials
+
+When breaking out SCSS into folders and partials, it is better to have logically broken-out partials than to wind up with fewer but extremely long partials. We use sourcemaps to easily determine from which partial a style originates when debugging in browser.
+
+## Tabs
+
+In keeping with the Drupal coding standards, we use soft tabs with two spaces; they're the only way to guarantee code renders the same in any environment.
+
+## Comments
+
+Comments should use SCSS's comment style, "// I am a comment," as opposed to the traditional CSS comment style, "/_ I am a comment _/," so that they will not appear in the compiled CSS file. We utilize comments to effectively describe different parts of our code, especially at the top of each file. Comments should explain why we're doing something, especially when using an obscure CSS property. Read more on "Let's Write Beautiful CSS Comments."
+
+## Resets
+
+We use Eric Meyer's reset on all sites. It allows us to start with a fresh slate for all styles, rather than overriding arbitrary Normalize styles. All sites should also use Paul Irish's box-sizing method.
+
+## Classes vs IDs
+
+We should almost never use IDs in CSS. IDs are given preference over classes, are difficult to maintain, and create bugs that are hard to track down and correct. IDs should, however, be used whenever possible in Javascript.
+
+## Naming conventions
+
+Classes, IDs, and images are named with lowercase words separated by a dash. Classes should be named using modular, descriptive words for components, instead of page level names or the name of the theme. To avoid confusion, it is important to avoid using common Drupal terms such as "block," "region," "pane," etc. in custom class names.
+
+Class names should not use descriptors relating to color, number of columns, or anything else that could easily change.
+
+### Bad Examples
+
+.cat-page-header
+.panel-sidebar-menu
+.mag-slider-pane
+.pink-text
+.col-3
+
+### Good Examples
+
+.jumbo-header
+.cat-card
+.xl-slider
+.emphasized-text
+.content-aside
+
+## Declaration order
+
+Style declarations should be placed in the following order:
+
+Positioning
+Box model
+Typographic
+Visual
+Positioning comes first because it can remove an element from the normal flow of the document and override box model related styles. The box model comes next as it dictates a component's dimensions and placement.
+
+Everything else takes place inside the component or without impacting the previous two sections, and thus they come last.
+
+## Single line declarations
+
+Do not use single-line declarations.
+
+## Vendor prefixes
+
+Let Autoprefixer (via Gulp) generate vendor prefixes for you when your SCSS compiles. See https://github.com/postcss/autoprefixer for instructions on how to specify which browsers you wish to support.
+
+## Nesting
+
+In most cases, we do not nest our SCSS. Nesting selectors within selectors may seem convenient while writing code, but makes it more difficult to read and maintain and often leads to needlessly specific selectors.
+
+However, there are a few scenarios where it is acceptable to nest selectors one layer deep only:
+
+- When denoting a state such as :hover, :focus, or :active
+- When using a pseudo-element (:before, :after)
+
+## Scope and Specificity
+
+Our goal in writing markup and SCSS should be to nest our selectors as little as possible, by using markup with specifically scoped classes. For instance, something like ".node-blog .field-related h2" is a clunky selector that will be difficult to override. Where possible, it is preferable to have a class directly on the object we wish to style. This keeps our code lean and allows us to create reusable modules with a minimum of overriding.
+
+## Mixins and Extendables
+
+Use mixins to automate pieces of code, but not to create batch styles. Mixins are fantastic for media queries, including icons, button styling, or other small snippets of code that we may need to write several times. In cases where parameters are not needed and it will not need to be called from within a media query, an extendable can be used instead of a mixin (example: clearfixes).
+
+## Units
+
+With the exception of borders, we try to avoid using pixel units for the sake of accessibility and responsiveness. To avoid the confusion of nested elements with ems applied, we use rems. Our Gulp starter includes a function, "px-to-rem()," that accepts an integer (in pixels) and converts it to rems so that we don't need to calculate them on the fly.
+
+## Frameworks
+
+We do not, under any circumstances, use frameworks such as Bootstrap or Foundation. Frameworks bloat file size incredibly quickly, almost always need to be overridden, and are frankly lazy development. In some cases, we may use only the portion of a framework that generates a custom grid.
+
+## Javascript
+
+When writing javascript(jQuery), avoid using predefined functions such as "show()" and "hide()." Instead, toggle a CSS class for greater control over the resulting behavior. Choose libraries for interactions such as carousels with care, accounting for file size, quality of maintenance and documentation, and general reputability.
+
+When adding javascript to a Drupal theme or module, be sure to use "Drupal.behaviors" as opposed to "document.ready." For more information, read about the Drupal Javascript API.
+
+## Images
+
+We do not use bitmap sprites. The only images that should appear in the theme folder are the theme's logo (which should be in SVG format for best resolution at all sizes and monitor types), any necessary background images, and SVG icons. When dealing with responsive layouts, we only load images appropriate to the user's screen.
+
+## Fonts
+
+Web fonts
+We generally use web fonts from Google Fonts or Typekit. In Drupal themes, these should be added via a preprocess function.
+
+Font families and weights should be defined as SCSS variables. All font families should use, at a minimum, 'serif' or 'sans-serif' as a fallback. Font weights should always use the appropriate number (400, 700, etc.) - never simply "normal" or "bold."
+
+## Icon fonts
+
+We use Gulp to build custom icon fonts out of SVGs when needed, avoiding the bloat of many common icon fonts that contain hundreds or thousands of extraneous icons. Consult the Gulp starter README for implementation instructions.
+
+## HTML
+
+All sites should use HTML5 elements, including content sectioning, for their correct semantic purpose.
+
+## Cross-Browser Compatibility
+
+To ensure that our sites work in as many browsers as possible, we should use progressive enhancement to add features only when supported. If needed, we should test whether a specific feature is supported in the user's browser using Modernizr, rather than generalizing based on browser. We should never use conditional statements such as `<!-- [if IE] -->` in our markup.
+
+## Accessibility
+
+Whether officially required by the project or not, we should make every effort to make our sites accessible to at least the standard of WCAG 2.0 AA. This includes, but is by no means limited to, ensuring that the site is keyboard navigable, using appropriate aria roles, including a skip link at the top of every page, and using proper alt tags on images.
+
+## Text Editor
+
+While you may use whatever text editor you like, Drupal.org offers some helpful tips on configuring Sublime Text.
+
+## Related Resources:
+
+Nicolas Gallagher's Principles of writing consistent, idiomatic CSS
+Mark Otto's Code Guide
+Jacob Thornton's Medium's CSS is actually pretty f\*\*\*ing good.
+Zurb's approach to Mobile First
+Google's HTML/CSS Style Guide
