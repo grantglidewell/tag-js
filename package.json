@@ -4,7 +4,8 @@
   "description": "Third and Grove standards and best practices for JS applications",
   "main": "index.js",
   "scripts": {
-    "start": "yarn docz dev"
+    "start": "yarn docz dev",
+    "build": "yarn docz build"
   },
   "author": "Third and Grove <www.thirdandgrove.com>",
   "contributors": [

@@ -1,3 +1,4 @@
 {
-  "title": "TAG JS Standards"
+  "title": "TAG JS Standards",
+  "parser": "babel"
 }

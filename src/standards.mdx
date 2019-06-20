@@ -91,9 +91,9 @@ In a similar manner the folder structure should follow the routing structure in 
 
 ## Commits
 
-ignore node_modules, for the love of all that is holy! commit your yarn.lock file. If there are two lock files in a project, delete package.lock. Yarn is smart about this and warns you, get ahead of the issue by killing the package.lock and allowing the source of truth to be yarn.
+Ignore node_modules, for the love of all that is holy! commit your yarn.lock file. If there are two lock files in a project, delete package.lock. Yarn is smart about this and warns you, get ahead of the issue by killing the package.lock and allowing the source of truth to be yarn.
 
-if there are **warnings** in your commit, these are from the automated linting in the standards package. It is best to clean these up before submitting a PR. The warn against coding style and error for serious offenses.
+If there are **warnings** in your commit, these are from the automated linting in the tag-standards package. It is advisable to clean these up before submitting a PR. It warns against coding style and error for serious offenses. Usually these are simple issues like unused variables or where to place whitespace. If the issue is more involved you can research the rule in the eslint documentation. Only as a **last resort** and after confirming with other devs on the project should a rule be disabled, prefer disabling on the line, if needed in the file. If you feel a rule needs to be treated differently in a project please [file an issue in the tag-standards repo](https://github.com/thirdandgrove/tag-standards/issues) so it can be evaluated across all our projects.
 
 ## External Libraries
 
